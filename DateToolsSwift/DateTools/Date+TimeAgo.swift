@@ -231,23 +231,6 @@ public extension Date {
         return ""
     }
     
-    
-    // MARK: - Localization
-    
-    private func DateToolsLocalizedStrings(_ string: String) -> String {
-        //let classBundle = Bundle(for:TimeChunk.self as! AnyClass.Type).resourcePath!.appending("DateTools.bundle")
-        
-        //let bundelPath = Bundle(path:classBundle)!
-        #if os(Linux)
-        // NSLocalizedString() is not available yet, see: https://github.com/apple/swift-corelibs-foundation/blob/16f83ddcd311b768e30a93637af161676b0a5f2f/Foundation/NSData.swift
-        // However, a seemingly-equivalent method from NSBundle is: https://github.com/apple/swift-corelibs-foundation/blob/master/Foundation/NSBundle.swift
-            return Bundle.main.localizedString(forKey: string, value: "", table: "DateTools")
-        #else
-            return NSLocalizedString(string, tableName: "DateTools", bundle: Bundle.dateToolsBundle(), value: "", comment: "")
-        #endif
-    }
-    
-    
     // MARK: - Date Earlier/Later
     
     /**
@@ -272,4 +255,18 @@ public extension Date {
         return (self.timeIntervalSince1970 >= date.timeIntervalSince1970) ? self : date
     }
     
+}
+
+// MARK: - Localization
+func DateToolsLocalizedStrings(_ string: String) -> String {
+    //let classBundle = Bundle(for:TimeChunk.self as! AnyClass.Type).resourcePath!.appending("DateTools.bundle")
+    
+    //let bundelPath = Bundle(path:classBundle)!
+    #if os(Linux)
+    // NSLocalizedString() is not available yet, see: https://github.com/apple/swift-corelibs-foundation/blob/16f83ddcd311b768e30a93637af161676b0a5f2f/Foundation/NSData.swift
+    // However, a seemingly-equivalent method from NSBundle is: https://github.com/apple/swift-corelibs-foundation/blob/master/Foundation/NSBundle.swift
+        return Bundle.main.localizedString(forKey: string, value: "", table: "DateTools")
+    #else
+        return NSLocalizedString(string, tableName: "DateTools", bundle: Bundle.dateToolsBundle(), value: "", comment: "")
+    #endif
 }
