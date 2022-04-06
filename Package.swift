@@ -27,12 +27,18 @@ let package = Package(
             name: "DateToolsObjc",
             path: "DateTools/DateTools",
             resources: [.copy("DateTools.bundle")],
-            publicHeadersPath: "."
+            publicHeadersPath: ".",
+            cSettings: [.define("PACKAGE_MANAGER")]
         ),
         .testTarget(
             name: "DateToolsSwiftTests",
             dependencies: ["DateToolsSwift"],
             path: "DateToolsSwift/Tests/PackageTests"
+        ),
+        .testTarget(
+            name: "DateToolsObjcTests",
+            dependencies: ["DateToolsObjc"],
+            path: "DateToolsSwift/Tests/PackageTestsObjc"
         )
     ]
 )
